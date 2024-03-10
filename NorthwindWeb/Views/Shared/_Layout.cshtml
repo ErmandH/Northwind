@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Northwind</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="/Admin/assets/css/app.min.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/Admin/assets/css/style.css">
+    <link rel="stylesheet" href="/Admin/assets/css/components.css">
+    <link rel="stylesheet" href="/Admin/assets/bundles/jqvmap/dist/jqvmap.min.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="/Admin/assets/css/custom.css">
+    <link rel="stylesheet" href="/Admin/assets/css/customstyles.css">
+    <link rel='shortcut icon' type='image/x-icon' href='/Admin/assets/img/favicon.ico' />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+
+<body>
+    <div class="loader"></div>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar sticky">
+                <div class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li>
+                            <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="menu"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="navbar-nav navbar-right">
+                    <li>
+                        <a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                            <i data-feather="maximize"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-user">
+                        <div class="sidebar-user-picture">
+                            <img alt="image" src="/Admin/assets/img/user.png">
+                        </div>
+                        <div class="sidebar-user-details">
+                            <div class="user-name"></div>
+                            <div class="user-role"></div>
+                        </div>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="menu-header">Main</li>
+                        <li>
+                            <a class="nav-link" href="/">
+                                <i class="fas fa-file"></i><span>
+                                    Dashboard
+                                </span>
+                            </a>
+                        </li>
+                        @* <li class="dropdown">
+                            <a href="/admin/school/add" class="menu-toggle nav-link has-dropdown">
+                                <i class="fas fa-file"></i><span>School</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="/admin/school/add">Add School</a></li>
+                                <li><a class="nav-link" href="/admin/school/list">List School</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="index.html#" class="menu-toggle nav-link has-dropdown"><i
+                                    class="fas fa-file"></i><span>Student</span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="/admin/student/add">Add Student</a></li>
+                                <li><a class="nav-link" href="/admin/student/list">List Student</a></li>
+                            </ul>
+                        </li> *@
+                    </ul>
+                </aside>
+            </div>
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    @RenderBody()
+                </section>
+            </div>
+
+        </div>
+    </div>
+    <!-- General JS Scripts -->
+    <script src="/Admin/assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    @* <script src="/Admin/assets/bundles/apexcharts/apexcharts.min.js"></script>
+    <script src="/Admin/assets/bundles/amcharts4/core.js"></script>
+    <script src="/Admin/assets/bundles/amcharts4/charts.js"></script>
+    <script src="/Admin/assets/bundles/amcharts4/animated.js"></script> *@
+    <script src="/Admin/assets/bundles/chartjs/chart.min.js"></script>
+
+    <!-- Page Specific JS File -->
+    <script src="/Admin/assets/js/page/index.js"></script>
+    <!-- Template JS File -->
+    <script src="/Admin/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="/Admin/assets/js/custom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @*<script src="~/Admin/scripts/common/commonFunctions.js"></script>*@
+    <script src="/Admin/assets/bundles/datatables/datatables.min.js"></script>
+    <script src="/Admin/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/Admin/assets/bundles/jquery-ui/jquery-ui.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

@@ -1,0 +1,301 @@
+﻿@model IList<Order>
+
+@section Scripts {
+    <script src="/js/site.js"></script>
+    <script>
+        var ctx = document.getElementById('monthChart').getContext('2d');
+        var orderData = @Html.Raw(Json.Serialize(ViewBag.OrderData));
+        var monthLabels = @Html.Raw(Json.Serialize(ViewBag.MonthLabels));
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: monthLabels,
+                datasets: [{
+                    label: 'Order Count',
+                    data: orderData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+        var ctx2 = document.getElementById('categoryChart').getContext('2d');
+        var categoryLabels = @Html.Raw(Json.Serialize(ViewBag.CategoryLabels));
+        var productCounts = @Html.Raw(Json.Serialize(ViewBag.ProductCounts));
+
+        var myChart2 = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: categoryLabels,
+                datasets: [{
+                    label: 'Product Count',
+                    data: productCounts,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        });
+    </script>
+
+    <script>
+        var ctx3 = document.getElementById("orderByYearChart").getContext('2d');
+        var years = @Html.Raw(Json.Serialize(ViewBag.Years));
+        var orderCounts = @Html.Raw(Json.Serialize(ViewBag.OrderCounts));
+
+        var myLineChart = new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Orders by Year',
+                    data: orderCounts,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+        var ctx4 = document.getElementById("countryChart").getContext('2d');
+        var countries = @Html.Raw(Json.Serialize(ViewBag.Countries));
+        var orderCounts = @Html.Raw(Json.Serialize(ViewBag.OrderCounts2));
+
+        var myBarChart2 = new Chart(ctx4, {
+            type: 'bar',
+            data: {
+                labels: countries,
+                datasets: [{
+                    label: 'Orders by Ship Country',
+                    data: orderCounts,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Orders</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <table id="example" class="display table table-striped dataTable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Customer Contact</th>
+                            <th>Customer Company</th>
+                            <th>Order Date</th>
+                            <th>Employee</th>
+                            <th>Ship Date</th>
+                            <th>Ship Via</th>
+                            <th>Ship Name</th>
+                            <th>Ship City</th>
+                            <th>Ship Country</th>
+                            <th>Ship Region</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model)
+                        {
+                            <tr>
+                                <td>@order.OrderId</td>
+                                <td>@order.Customer.ContactName</td>
+                                <td>@order.Customer.CompanyName</td>
+                                <td>@order.OrderDate.ToString()</td>
+                                <td>@order.Employee.FirstName @order.Employee.LastName</td>
+                                <td>@order.ShippedDate.ToString()</td>
+                                <td>@order.ShipViaNavigation.CompanyName</td>
+                                <td>@order.ShipName</td>
+                                <td>@order.ShipCity</td>
+                                <td>@order.ShipCountry</td>
+                                <td>@order.ShipRegion</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Customer Contact</th>
+                            <th>Customer Company</th>
+                            <th>Order Date</th>
+                            <th>Employee</th>
+                            <th>Ship Date</th>
+                            <th>Ship Via</th>
+                            <th>Ship Name</th>
+                            <th>Ship City</th>
+                            <th>Ship Country</th>
+                            <th>Ship Region</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4>Customers</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <table id="example2" class="display table table-striped dataTable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Customer Contact</th>
+                            <th>Customer Contact Title</th>
+                            <th>Customer Company</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>Region</th>
+                            <th>Postal Code</th>
+                            <th>Country</th>
+                            <th>Phone</th>
+                            <th>Fax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var customer in (ViewBag.CustomerList as List<Customer>))
+                        {
+                            <tr>
+                                <td>@customer.CustomerId</td>
+                                <td>@customer.ContactName</td>
+                                <td>@customer.ContactTitle</td>
+                                <td>@customer.CompanyName</td>
+                                <td>@customer.Address</td>
+                                <td>@customer.City</td>
+                                <td>@customer.Region</td>
+                                <td>@customer.PostalCode</td>
+                                <td>@customer.Country</td>
+                                <td>@customer.Phone</td>
+                                <td>@customer.Fax</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Customer Contact</th>
+                            <th>Customer Company</th>
+                            <th>Order Date</th>
+                            <th>Employee</th>
+                            <th>Ship Date</th>
+                            <th>Ship Via</th>
+                            <th>Ship Name</th>
+                            <th>Ship City</th>
+                            <th>Ship Country</th>
+                            <th>Ship Region</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4>Orders on every month</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <canvas id="monthChart" height="70"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4>Product Count with Categories</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <canvas id="categoryChart" height="70"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4>Orders by year</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <canvas id="orderByYearChart" height="70"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4>Orders by Ship Country</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <canvas id="countryChart" height="70"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
